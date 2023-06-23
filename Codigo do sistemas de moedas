@@ -1,0 +1,27 @@
+//Codigo de interacao com as moedas do jogo
+
+using UnityEngine;
+
+public class Coin : MonoBehaviour
+{
+    private CoinCounterUI coinCounter;
+
+    private void Start()
+    {
+        coinCounter = FindObjectOfType<CoinCounterUI>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            CharacterController character = other.GetComponent<CharacterController>();
+            if (character != null)
+            {
+                character.CollectCoin();
+                coinCounter.IncreaseCoinCount(); // Adicione esta linha para atualizar o contador de moedas
+            }
+
+            Destroy(gameObject);
+        }
+    }
